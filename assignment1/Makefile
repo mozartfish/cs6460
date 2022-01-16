@@ -1,22 +1,28 @@
-# Make File for Assignment 1
+# Make File for Assignment 1. This Makefile is based upon the swarthmore
+# makefile tutorial
 # Name: Pranav Rajan
 # Class: OS Spring 2022, Professor Ryan Stutsman
 # Version: January 16, 2022
 
 # Define Compiler and flags
 CC = gcc
-CFLAGS = -Wall 
+CFLAGS = -g -Wall
 
-OBJS = assignment1.o
+default: main
 
-all: assignment1
+main: main.o assignment1.o
+	$(CC) $(CFLAGS) -o main main.o assignment1.o
 
-assignment1: $(OBJS)
-            $(CC) $(CFLAGS) -o assignment1 $(OBJS) -lm
+main.o: main.c
+	$(CC) $(CFLAGS) -c main.c
 
 assignment1.o: assignment1.c assignment1.h
+	$(CC) $(CFLAGS) -c assignment1.c
 
 clean:
-	rm -f *~ *.o assignment1
+	$(RM) main *.o *~
+
+
+
 
 
