@@ -100,10 +100,10 @@ void convert(enum format_t mode, uint64_t value)
     // OCT - 99
     // BIN - 100
     // HEX - 101
+    int i, j, k;
     switch (mode)
     {
     case OCT:
-        int k;
         for (k = 21; k >= 0; --k)
         {
             // check groups of 3 bits
@@ -141,7 +141,6 @@ void convert(enum format_t mode, uint64_t value)
         putc('\n', stdout);
         return;
     case BIN:
-        int j;
         for (j = 63; j >= 0; --j)
         {
             // check individual bits
@@ -161,7 +160,6 @@ void convert(enum format_t mode, uint64_t value)
         putc('\n', stdout);
         return;
     case HEX:
-        int i;
         for (i = 15; i >= 0; --i)
         {
             // get the bits for a single byte and print the associated character
