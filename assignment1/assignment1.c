@@ -92,3 +92,139 @@ uint64_t nibble_sort(uint64_t arg)
 
     return result;
 }
+
+/*Depending on the value of mode, print value as octal, binary,
+or hexidecimal to stdout, followed by a newline character.*/
+void convert(enum format_t mode, uint64_t value)
+{
+    // OCT - 99
+    // BIN - 100
+    // HEX - 101
+
+    switch (mode)
+    {
+    case OCT:
+        printf("OCT Mode\n");
+        int k;
+        for (k = 0; k < 22; ++k)
+        {
+            // check groups of 3 bits
+            switch (value >> (i * 3) & 0X3)
+            {
+            case 000:
+                putc('0', stdout);
+                break;
+            case 001:
+                putc('1', stdout);
+                break;
+            case 100:
+                putc('2', stdout);
+                break;
+            case 110:
+                putc('3', stdout);
+                break;
+            case 100:
+                putc('4', stdout);
+                break;
+            case 101:
+                putc('5', stdout);
+                break;
+            case 110:
+                putc('6', stdout);
+                break;
+            case 111:
+                putc('7', stdout);
+                break;
+            default:
+                break;
+            }
+        }
+        // add new line character at the end
+        putc('\n', stdout);
+        return;
+    case BIN:
+        printf("BIN MODE\n");
+        int j;
+        for (j = 0; j < 64; ++j)
+        {
+            // check individual bits
+            switch (value >> (1 * i))
+            {
+            case 0:
+                putc('0', stdout);
+            case 1:
+                putc('1', stdout);
+            default:
+                break;
+            }
+        }
+        // add new line character at the end
+        putc('\n');
+        return;
+    case HEX:
+        printf("HEX MODE\n");
+        int i;
+        for (i = 0; i < 16; ++i)
+        {
+            // get the bits for a single byte and print the associated character
+            switch (value >> (4 * i) & 0XF)
+            {
+            case 0X0:
+                putc('0', stdout);
+                break;
+            case 0X1:
+                putc('1', stdout);
+                break;
+            case 0X2:
+                putc('0', stdout);
+                break;
+            case 0X3:
+                putc('1', stdout);
+                break;
+            case 0X4:
+                putc('0', stdout);
+                break;
+            case 0X5:
+                putc('1', stdout);
+                break;
+            case 0X6:
+                putc('0', stdout);
+                break;
+            case 0X7:
+                putc('1', stdout);
+                break;
+            case 0X8:
+                putc('0', stdout);
+                break;
+            case 0X9:
+                putc('1', stdout);
+                break;
+            case 0XA:
+                putc('a', stdout);
+                break;
+            case 0XB:
+                putc('b', stdout);
+                break;
+            case 0XC:
+                putc('c', stdout);
+                break;
+            case 0XD:
+                putc('d', stdout);
+                break;
+            case 0XE:
+                putc('e', stdout);
+                break;
+            case 0XF:
+                putc('f', stdout);
+                break;
+            default:
+                break;
+            }
+        }
+        // add the new line character
+        putc('\n');
+        return;
+    default:
+        return;
+    }
+}

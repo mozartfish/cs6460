@@ -20,11 +20,11 @@ uint64_t nibble_sort(uint64_t arg);
 
 // struct elt* str_to_list(const char* str);
 
-// enum format_t {
-//   OCT = 99, BIN, HEX
-// };
+enum format_t {
+  OCT = 99, BIN, HEX
+};
 
-// void convert(enum format_t mode, uint64_t value);
+void convert(enum format_t mode, uint64_t value);
 
 // void draw_u(void);
 
