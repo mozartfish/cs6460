@@ -12,4 +12,10 @@ int main()
     printf("original value passed in: %lx\n", 0x0403deadbeef0201);
     uint64_t bar = nibble_sort(0x0403deadbeef0201);
     printf("value of bar is: %lx\n", bar);
+
+    printf("Convert\n");
+    printf("original value passed in: %x\n", 0Xdeadbeef);
+    printf("Hex value\n");
+    convert(HEX, 0Xdeadbeef);
+    printf("result should be: 00000000deadbeef");
 }
