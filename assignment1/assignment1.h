@@ -11,7 +11,7 @@
 
 uint64_t byte_sort(uint64_t arg);
 
-// uint64_t nibble_sort(uint64_t arg);
+uint64_t nibble_sort(uint64_t arg);
 
 // struct elt {
 //   char val;
