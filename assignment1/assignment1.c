@@ -161,7 +161,7 @@ void convert(enum format_t mode, uint64_t value)
         for (j = 0; j < 64; ++j)
         {
             // check individual bits
-            switch (value >> (1 * j) & 0X1)
+            switch ((value >> (1 * j)) & 0X1)
             {
             case 0x0:
                 putc('0', stdout);
