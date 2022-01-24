@@ -106,34 +106,43 @@ void convert(enum format_t mode, uint64_t value)
     case OCT:
         printf("OCT Mode\n");
         int k;
+        // char result[22];
         for (k = 0; k < 22; ++k)
         {
             // check groups of 3 bits
-            switch (value >> (i * 3) & 0X3)
+            switch (value >> (k * 3) & 0X3)
             {
             case 000:
                 putc('0', stdout);
+                // char[k] = '0';
                 break;
             case 001:
                 putc('1', stdout);
+                // char[k] = '1';
                 break;
-            case 100:
+            case 010:
                 putc('2', stdout);
+                // char[k] = '2';
                 break;
-            case 110:
+            case 011:
                 putc('3', stdout);
+                // char[k] = '3';
                 break;
             case 100:
                 putc('4', stdout);
+                // char[k] = '4';
                 break;
             case 101:
                 putc('5', stdout);
+                // char[k] = '5';
                 break;
             case 110:
                 putc('6', stdout);
+                // char[k] = '6';
                 break;
             case 111:
                 putc('7', stdout);
+                // char[k] = '7';
                 break;
             default:
                 break;
@@ -141,6 +150,10 @@ void convert(enum format_t mode, uint64_t value)
         }
         // add new line character at the end
         putc('\n', stdout);
+        // int n;
+        // for (n = 21; n >= 0; --n) {
+        //     putc(char[n])
+        // }
         return;
     case BIN:
         printf("BIN MODE\n");
@@ -148,7 +161,7 @@ void convert(enum format_t mode, uint64_t value)
         for (j = 0; j < 64; ++j)
         {
             // check individual bits
-            switch (value >> (1 * i))
+            switch (value >> (1 * j) & 0X1)
             {
             case 0:
                 putc('0', stdout);
@@ -159,12 +172,12 @@ void convert(enum format_t mode, uint64_t value)
             }
         }
         // add new line character at the end
-        putc('\n');
+        putc('\n', stdout);
         return;
     case HEX:
         printf("HEX MODE\n");
         int i;
-        for (i = 0; i < 16; ++i)
+        for (i = 15; i >=0; --i)
         {
             // get the bits for a single byte and print the associated character
             switch (value >> (4 * i) & 0XF)
@@ -222,7 +235,7 @@ void convert(enum format_t mode, uint64_t value)
             }
         }
         // add the new line character
-        putc('\n');
+        putc('\n', stdout);
         return;
     default:
         return;
