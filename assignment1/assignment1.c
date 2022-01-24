@@ -112,35 +112,35 @@ void convert(enum format_t mode, uint64_t value)
             // check groups of 3 bits
             switch (value >> (k * 3) & 0X3)
             {
-            case 000:
+            case 0x0:
                 putc('0', stdout);
                 // char[k] = '0';
                 break;
-            case 001:
+            case 0X1:
                 putc('1', stdout);
                 // char[k] = '1';
                 break;
-            case 010:
+            case 0X2:
                 putc('2', stdout);
                 // char[k] = '2';
                 break;
-            case 011:
+            case 0X3:
                 putc('3', stdout);
                 // char[k] = '3';
                 break;
-            case 100:
+            case 0X4:
                 putc('4', stdout);
                 // char[k] = '4';
                 break;
-            case 101:
+            case 0X5:
                 putc('5', stdout);
                 // char[k] = '5';
                 break;
-            case 110:
+            case 0X6:
                 putc('6', stdout);
                 // char[k] = '6';
                 break;
-            case 111:
+            case 0X7:
                 putc('7', stdout);
                 // char[k] = '7';
                 break;
