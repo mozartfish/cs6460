@@ -158,7 +158,7 @@ void convert(enum format_t mode, uint64_t value)
     case BIN:
         printf("BIN MODE\n");
         int j;
-        for (j = 63; j >= 0; ++j)
+        for (j = 63; j >= 0; --j)
         {
             // check individual bits
             switch (value >> (1 * j) & 0X1)
