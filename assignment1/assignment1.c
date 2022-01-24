@@ -110,7 +110,7 @@ void convert(enum format_t mode, uint64_t value)
         for (k = 0; k < 22; ++k)
         {
             // check groups of 3 bits
-            switch (value >> (k * 3) & 0X3)
+            switch (value >> (k * 3) & 0X7)
             {
             case 0x0:
                 putc('0', stdout);
