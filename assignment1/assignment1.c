@@ -59,7 +59,7 @@ uint64_t nibble_sort(uint64_t arg)
     int i;
     for (i = 0; i < 16; ++i)
     {
-        uint64_t val = arg >> (4 * i) & 0XF;
+        uint64_t val = arg >> (4 * i) & 0xF;
         nibbles[i] = val;
     }
 
@@ -81,7 +81,7 @@ uint64_t nibble_sort(uint64_t arg)
 
     // reassemble all the bits into the uint 64
     // 2 Hex  = 1 byte
-    uint64_t result = 0X0000000000000000; // create a value with all bits set
+    uint64_t result = 0x0000000000000000; // create a value with all bits set
     int h;
     for (h = 15; h >= 0; h--)
     {
@@ -107,30 +107,30 @@ void convert(enum format_t mode, uint64_t value)
         for (k = 21; k >= 0; --k)
         {
             // check groups of 3 bits
-            switch (value >> (k * 3) & 0X7)
+            switch (value >> (k * 3) & 0x7)
             {
             case 0x0:
                 putc('0', stdout);
                 break;
-            case 0X1:
+            case 0x1:
                 putc('1', stdout);
                 break;
-            case 0X2:
+            case 0x2:
                 putc('2', stdout);
                 break;
-            case 0X3:
+            case 0x3:
                 putc('3', stdout);
                 break;
-            case 0X4:
+            case 0x4:
                 putc('4', stdout);
                 break;
-            case 0X5:
+            case 0x5:
                 putc('5', stdout);
                 break;
-            case 0X6:
+            case 0x6:
                 putc('6', stdout);
                 break;
-            case 0X7:
+            case 0x7:
                 putc('7', stdout);
                 break;
             default:
@@ -144,7 +144,7 @@ void convert(enum format_t mode, uint64_t value)
         for (j = 63; j >= 0; --j)
         {
             // check individual bits
-            switch (value >> (1 * j) & 0X1)
+            switch (value >> (1 * j) & 0x1)
             {
             case 0x0:
                 putc('0', stdout);
@@ -163,54 +163,54 @@ void convert(enum format_t mode, uint64_t value)
         for (i = 15; i >= 0; --i)
         {
             // get the bits for a single byte and print the associated character
-            switch (value >> (4 * i) & 0XF)
+            switch (value >> (4 * i) & 0xF)
             {
-            case 0X0:
+            case 0x0:
                 putc('0', stdout);
                 break;
-            case 0X1:
+            case 0x1:
                 putc('1', stdout);
                 break;
-            case 0X2:
+            case 0x2:
                 putc('0', stdout);
                 break;
-            case 0X3:
+            case 0x3:
                 putc('1', stdout);
                 break;
-            case 0X4:
+            case 0x4:
                 putc('0', stdout);
                 break;
-            case 0X5:
+            case 0x5:
                 putc('1', stdout);
                 break;
             case 0X6:
                 putc('0', stdout);
                 break;
-            case 0X7:
+            case 0x7:
                 putc('1', stdout);
                 break;
-            case 0X8:
+            case 0x8:
                 putc('0', stdout);
                 break;
-            case 0X9:
+            case 0x9:
                 putc('1', stdout);
                 break;
-            case 0XA:
+            case 0xA:
                 putc('a', stdout);
                 break;
-            case 0XB:
+            case 0xB:
                 putc('b', stdout);
                 break;
-            case 0XC:
+            case 0xC:
                 putc('c', stdout);
                 break;
-            case 0XD:
+            case 0xD:
                 putc('d', stdout);
                 break;
-            case 0XE:
+            case 0xE:
                 putc('e', stdout);
                 break;
-            case 0XF:
+            case 0xF:
                 putc('f', stdout);
                 break;
             default:
@@ -224,3 +224,5 @@ void convert(enum format_t mode, uint64_t value)
         return;
     }
 }
+
+
