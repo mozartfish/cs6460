@@ -103,7 +103,6 @@ void convert(enum format_t mode, uint64_t value)
     switch (mode)
     {
     case OCT:
-        printf("OCT Mode\n");
         int k;
         for (k = 21; k >= 0; --k)
         {
@@ -142,7 +141,6 @@ void convert(enum format_t mode, uint64_t value)
         putc('\n', stdout);
         return;
     case BIN:
-        printf("BIN MODE\n");
         int j;
         for (j = 63; j >= 0; --j)
         {
@@ -163,7 +161,6 @@ void convert(enum format_t mode, uint64_t value)
         putc('\n', stdout);
         return;
     case HEX:
-        printf("HEX MODE\n");
         int i;
         for (i = 15; i >= 0; --i)
         {
