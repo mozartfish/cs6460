@@ -107,7 +107,7 @@ void convert(enum format_t mode, uint64_t value)
         printf("OCT Mode\n");
         int k;
         // char result[22];
-        for (k = 0; k < 22; ++k)
+        for (k = 22; k >= 0; --k)
         {
             // check groups of 3 bits
             switch (value >> (k * 3) & 0X7)
