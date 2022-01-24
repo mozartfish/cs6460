@@ -19,7 +19,7 @@ int main()
     convert(HEX, 0Xdeadbeef);
     printf("Binary value\n");
     convert(BIN, 0Xdeadbeef);
-    printf("Oct value\n");
-    convert(OCT, 0Xdeadbeef);
+    // printf("Oct value\n");
+    // convert(OCT, 0Xdeadbeef);
     printf("hex result should be: 00000000deadbeef\n");
 }
