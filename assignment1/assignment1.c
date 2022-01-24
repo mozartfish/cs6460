@@ -161,7 +161,7 @@ void convert(enum format_t mode, uint64_t value)
         for (j = 0; j < 64; ++j)
         {
             // check individual bits
-            switch (value >> (1 * j) & 0X1)
+            switch ((value >> (1 * j)) & 0X1)
             {
             case 0:
                 putc('0', stdout);
@@ -177,7 +177,7 @@ void convert(enum format_t mode, uint64_t value)
     case HEX:
         printf("HEX MODE\n");
         int i;
-        for (i = 15; i >=0; --i)
+        for (i = 15; i >= 0; --i)
         {
             // get the bits for a single byte and print the associated character
             switch (value >> (4 * i) & 0XF)
