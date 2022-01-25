@@ -244,16 +244,17 @@ struct elt *str_to_list(const char *str)
         // check if malloc fails and free memory
         if (new_elt == NULL)
         {
-            struct elt *current_elt = head;
+            struct elt *start_elt = head;
             struct elt *next_elt;
-            while (current_elt != NULL)
+            while (start_elt != NULL)
             {
-                next_elt = current_elt->link;
-                free(current_elt);
-                current_elt = next_elt;
+                next_elt = start_elt->link;
+                free(start_elt);
+                start_elt = start_elt;
             }
             // set head node null
             head = NULL;
+            free(new_elt);
         }
 
         // set the head node
