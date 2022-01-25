@@ -248,6 +248,7 @@ struct elt *str_to_list(const char *str)
             new_elt->link = NULL;
             next_elt = new_elt;
             head = next_elt;
+            // ++i;
         }
         else
         {
@@ -280,8 +281,9 @@ struct elt *str_to_list(const char *str)
                 // }
                 // end_elt->link = new_elt;
             }
-            ++i;
         }
+        // update increment
+        ++i;
     }
     return head;
 }
