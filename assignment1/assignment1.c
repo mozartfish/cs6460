@@ -268,7 +268,7 @@ struct elt *str_to_list(const char *str)
             // add a new node to the elt list
             else
             {
-                struct elt *end_elt = next;
+                struct elt *end_elt = next_elt;
                 new_elt->val = str[i];
                 new_elt->link = NULL;
 
