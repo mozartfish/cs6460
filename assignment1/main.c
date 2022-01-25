@@ -46,9 +46,9 @@ int main()
     convert(BIN, 0xdeadbeef);
     printf("Oct value\n");
     convert(OCT, 0xdeadbeef);
-    
+
     printf("str_to_list\n");
     struct elt *result = str_to_list("hello");
-    printList(result);
+    // printList(result);
     deleteList(result);
 }

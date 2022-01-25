@@ -254,7 +254,6 @@ struct elt *str_to_list(const char *str)
             }
             // set head node null
             head = NULL;
-            free(new_elt);
         }
 
         // set the head node
