@@ -231,20 +231,20 @@ Allocate and return a pointer to a linked list of struct elts.
 struct elt *str_to_list(const char *str)
 {
     // find size of char array
-    int j = 0;
-    while (str[j] != '\0')
+    int size = 0;
+    while (str[size] != '\0')
     {
-        ++j;
+        ++size;
     }
     printf("the size of the list is with a counter loop: %d\n", j);
-    int size = sizeof(*str) / sizeof(str[0]);
-    printf("length of string: %d\n", size);
+    // int size = sizeof(*str) / sizeof(str[0]);
+    // printf("length of string: %d\n", size);
 
     // declare a head node
     struct elt *head = NULL;
 
     int i = 0;
-    while (i < size && str[i] != '\0')
+    while (i < size)
     {
         struct elt *new_elt = (struct elt *)malloc(sizeof(struct elt));
         // create the head node
