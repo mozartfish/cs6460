@@ -14,6 +14,15 @@ void deleteList(struct elt *head)
     // set head node null
     head = NULL;
 }
+
+void printList(struct elt *head)
+{
+    while (head != NULL)
+    {
+        printf("%c", head->val);
+        head = head->link;
+    }
+}
 int main()
 {
     printf("Byte Sort\n");
@@ -38,5 +47,6 @@ int main()
     convert(OCT, 0xdeadbeef);
     printf("str_to_list\n");
     struct elt *result = str_to_list("hello");
+    printList(result);
     deleteList(result);
 }
