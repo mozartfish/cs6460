@@ -280,8 +280,8 @@ struct elt *str_to_list(const char *str)
                 // }
                 // end_elt->link = new_elt;
             }
+            ++i;
         }
-        ++i;
     }
     return head;
 }
