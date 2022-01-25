@@ -235,19 +235,17 @@ struct elt *str_to_list(const char *str)
 
     // declare a head node
     struct elt *head = NULL;
-    struct elt *next_elt = NULL;
 
     int i = 0;
     while (i < size && str[i] != '\0')
     {
         struct elt *new_elt = (struct elt *)malloc(sizeof(struct elt));
         // create the head node
-        if (new_elt != NULL && head == NULL && next_elt == NULL && i == 0)
+        if (new_elt != NULL && head == NULL)
         {
             new_elt->val = str[i];
             new_elt->link = NULL;
-            next_elt = new_elt;
-            head = next_elt;
+            head = new_elt;
             // ++i;
         }
         else
@@ -269,17 +267,14 @@ struct elt *str_to_list(const char *str)
             // add a new node to the elt list
             else
             {
-                // struct elt *end_elt = next_elt;
                 new_elt->val = str[i];
                 new_elt->link = NULL;
-                next_elt->link = new_elt;
-                next_elt = new_elt;
-
-                // while (end_elt->link != NULL)
-                // {
-                //     end_elt = end_elt->link;
-                // }
-                // end_elt->link = new_elt;
+                struct elt *last_elt = head;
+                while (last_elt->link != NULL)
+                {
+                    last_elt = last_elt->link;
+                }
+                last_elt = new_elt;
             }
         }
         // update increment
