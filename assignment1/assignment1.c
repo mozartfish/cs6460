@@ -230,10 +230,10 @@ Allocate and return a pointer to a linked list of struct elts.
 */
 struct elt *str_to_list(const char *str)
 {
-    // declare a head node
+    // declare a new node variable
     struct elt *head = NULL;
-
     int i = 0;
+
     while (str[i] != '\0')
     {
         printf("current iteration: %d\n", i);
@@ -273,7 +273,7 @@ struct elt *str_to_list(const char *str)
             {
                 last_elt = last_elt->link;
             }
-            last_elt = new_elt;
+            last_elt = new_elt; 
         }
         ++i;
     }
