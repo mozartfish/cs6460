@@ -1,7 +1,7 @@
 #include "assignment1.h"
 #include <stdio.h>
 
-void deleteList(struct elt **head)
+void deleteList(struct elt *head)
 {
     struct elt *current_elt = head;
     struct elt *next_elt;
@@ -12,7 +12,7 @@ void deleteList(struct elt **head)
         current_elt = next_elt;
     }
     // set head node null
-    *head = NULL;
+    head = NULL;
 }
 int main()
 {
@@ -37,6 +37,6 @@ int main()
     printf("Oct value\n");
     convert(OCT, 0xdeadbeef);
     printf("str_to_list\n");
-    struct *result = str_to_list("hello");
+    struct elt *result = str_to_list("hello");
     deleteList(result);
 }
