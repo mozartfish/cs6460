@@ -232,19 +232,17 @@ struct elt *str_to_list(const char *str)
 {
     // declare a head node
     struct elt *head = NULL;
+
     int i = 0;
     while (str[i] != '\0')
     {
         printf("current iteration: %d\n", i);
+
         // create a new node of size elt
         struct elt *new_elt = (struct elt *)malloc(sizeof(struct elt));
-        // check if malloc fails and head is null
-        if (new_elt == NULL && head == NULL)
-        {
-            return NULL;
-        }
-        // check if malloc fails and head is not null, free the memory
-        if (new_elt == NULL && head != NULL)
+
+        // check if malloc fails and free memory
+        if (new_elt == NULL)
         {
             struct elt *current_elt = head;
             struct elt *next_elt;
@@ -257,6 +255,7 @@ struct elt *str_to_list(const char *str)
             // set head node null
             head = NULL;
         }
+
         // set the head node
         if (i == 0)
         {
