@@ -253,7 +253,6 @@ struct elt *str_to_list(const char *str)
             new_elt->val = str[i];
             new_elt->link = NULL;
             head = new_elt;
-            // ++i;
         }
         else
         {
@@ -285,7 +284,7 @@ struct elt *str_to_list(const char *str)
             }
         }
         // update increment
-        printf("The current value of counter is: %d", i);
+        printf("The current value of counter is: %d\n", i);
         ++i;
     }
     return head;
