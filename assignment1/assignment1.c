@@ -245,12 +245,12 @@ struct elt *str_to_list(const char *str)
         if (new_elt == NULL)
         {
             struct elt *start_elt = head;
-            struct elt *next_elt = NULL;
+            struct elt *next_elt;
             while (start_elt != NULL)
             {
                 next_elt = start_elt->link;
                 free(start_elt);
-                start_elt = start_elt;
+                start_elt = next_elt;
             }
             // set head node null
             head = NULL;
