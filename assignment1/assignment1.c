@@ -238,7 +238,7 @@ struct elt *str_to_list(const char *str)
     struct elt *next_elt = NULL;
 
     int i = 0;
-    while (i < size && char[i] != '\0')
+    while (i < size && str[i] != '\0')
     {
         struct elt *new_elt = (struct elt *)malloc(sizeof(struct elt));
         // create the head node
