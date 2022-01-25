@@ -53,5 +53,7 @@ int main()
     printf("str_to_list\n");
     struct elt *result = str_to_list("hello");
     printList(result);
+    printf("el 0: %i\n", result->val);
+    printf("el 1: %i\n", result->link->val);
     deleteList(result);
 }
