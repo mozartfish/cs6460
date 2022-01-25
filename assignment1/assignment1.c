@@ -230,62 +230,107 @@ Allocate and return a pointer to a linked list of struct elts.
 */
 struct elt *str_to_list(const char *str)
 {
-    // find size of char array
-    int size = 0;
-    while (str[size] != '\0')
-    {
-        ++size;
-    }
-    printf("the size of the list is with a counter loop: %d\n", size);
-    // int size = sizeof(*str) / sizeof(str[0]);
-    // printf("length of string: %d\n", size);
-
     // declare a head node
     struct elt *head = NULL;
-
     int i = 0;
-    while (i < size)
+    while (str[i] != '\0')
     {
+        // create a new node of size elt
         struct elt *new_elt = (struct elt *)malloc(sizeof(struct elt));
-        // create the head node
-        if (new_elt != NULL && head == NULL)
+        // check if malloc fails and head is null
+        if (new_elt == NULL && head == NULL)
+        {
+            return NULL;
+        }
+        // check if malloc fails and head is not null, free the memory
+        if (new_elt == NULL && head != NULL)
+        {
+            struct elt *current_elt = head;
+            struct elt *next_elt;
+            while (current_elt != NULL)
+            {
+                next_elt = current_elt->link;
+                free(current_elt);
+                current_elt = next_elt;
+            }
+            // set head node null
+            head = NULL;
+        }
+        // set the head node
+        if (i == 0)
         {
             new_elt->val = str[i];
             new_elt->link = NULL;
             head = new_elt;
         }
+        // add a new node to the list
         else
         {
-            // check if the malloc fails
-            if (new_elt == NULL)
+            new_elt->val = str[i];
+            new_elt->link = NULL;
+            struct elt *last_elt = head;
+            while (last_elt->link != NULL)
             {
-                struct elt *current_elt = head;
-                struct elt *next_elt;
-                while (current_elt != NULL)
-                {
-                    next_elt = current_elt->link;
-                    free(current_elt);
-                    current_elt = next_elt;
-                }
-                // set head node null
-                head = NULL;
+                last_elt = last_elt->link;
             }
-            // add a new node to the elt list
-            else
-            {
-                new_elt->val = str[i];
-                new_elt->link = NULL;
-                struct elt *last_elt = head;
-                while (last_elt->link != NULL)
-                {
-                    last_elt = last_elt->link;
-                }
-                last_elt = new_elt;
-            }
+            last_elt = new_elt;
         }
-        // update increment
-        printf("The current value of counter is: %d\n", i);
         ++i;
     }
     return head;
+    // // find size of char array
+    // int size = 0;
+    // while (str[size] != '\0')
+    // {
+    //     ++size;
+    // }
+    // printf("the size of the list is with a counter loop: %d\n", size);
+    // // int size = sizeof(*str) / sizeof(str[0]);
+    // // printf("length of string: %d\n", size);
+
+    // int i = 0;
+    // while (i < size)
+    // {
+
+    //     // create the head node
+    //     if (new_elt != NULL && head == NULL)
+    //     {
+    //         new_elt->val = str[i];
+    //         new_elt->link = NULL;
+    //         head = new_elt;
+    //     }
+    //     else
+    //     {
+    //         // check if the malloc fails
+    //         if (new_elt == NULL)
+    //         {
+    //             struct elt *current_elt = head;
+    //             struct elt *next_elt;
+    //             while (current_elt != NULL)
+    //             {
+    //                 next_elt = current_elt->link;
+    //                 free(current_elt);
+    //                 current_elt = next_elt;
+    //             }
+    //             // set head node null
+    //             head = NULL;
+    //         }
+    //         // add a new node to the elt list
+    //         else
+    //         {
+    //             new_elt->val = str[i];
+    //             new_elt->link = NULL;
+    //             struct elt *last_elt = head;
+    //             while (last_elt->link != NULL)
+    //             {
+    //                 last_elt = last_elt->link;
+    //             }
+    //             last_elt = new_elt;
+    //         }
+    //     }
+    //     // update increment
+    //     printf("The current value of counter is: %d\n", i);
+    //     ++i;
+    // }
+    // return head;
 }
