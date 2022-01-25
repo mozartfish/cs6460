@@ -3,6 +3,7 @@
 
 void deleteList(struct elt *head)
 {
+    int i = 0;
     struct elt *current_elt = head;
     struct elt *next_elt;
     while (current_elt != NULL)
@@ -10,6 +11,8 @@ void deleteList(struct elt *head)
         next_elt = current_elt->link;
         free(current_elt);
         current_elt = next_elt;
+        ++i;
+        printf("current delete iteration: %d\n", i);
     }
     // set head node null
     head = NULL;
