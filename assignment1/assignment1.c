@@ -236,7 +236,7 @@ struct elt *str_to_list(const char *str)
     {
         ++size;
     }
-    printf("the size of the list is with a counter loop: %d\n", j);
+    printf("the size of the list is with a counter loop: %d\n", size);
     // int size = sizeof(*str) / sizeof(str[0]);
     // printf("length of string: %d\n", size);
 
