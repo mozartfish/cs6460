@@ -257,7 +257,7 @@ struct elt *str_to_list(const char *str)
         }
 
         // set the head node
-        if (i == 0)
+        else if (i == 0)
         {
             new_elt->val = str[i];
             new_elt->link = NULL;
