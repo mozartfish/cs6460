@@ -1,6 +1,19 @@
 #include "assignment1.h"
 #include <stdio.h>
 
+void deleteList(struct elt **head)
+{
+    struct elt *current_elt = head;
+    struct elt *next_elt;
+    while (current_elt != NULL)
+    {
+        next_elt = current_elt->link;
+        free(current_elt);
+        current_elt = next_elt;
+    }
+    // set head node null
+    *head = NULL;
+}
 int main()
 {
     printf("Byte Sort\n");
@@ -24,5 +37,6 @@ int main()
     printf("Oct value\n");
     convert(OCT, 0xdeadbeef);
     printf("str_to_list\n");
-    str_to_list("hello");
+    struct *result = str_to_list("hello");
+    deleteList(result);
 }
