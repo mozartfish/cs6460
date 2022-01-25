@@ -273,7 +273,7 @@ struct elt *str_to_list(const char *str)
             {
                 last_elt = last_elt->link;
             }
-            last_elt = new_elt; 
+            last_elt->link = new_elt;
         }
         ++i;
     }
