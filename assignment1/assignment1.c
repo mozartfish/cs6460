@@ -235,6 +235,7 @@ struct elt *str_to_list(const char *str)
     int i = 0;
     while (str[i] != '\0')
     {
+        printf("current iteration: %d\n", i);
         // create a new node of size elt
         struct elt *new_elt = (struct elt *)malloc(sizeof(struct elt));
         // check if malloc fails and head is null
