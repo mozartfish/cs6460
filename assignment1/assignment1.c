@@ -231,7 +231,7 @@ Allocate and return a pointer to a linked list of struct elts.
 struct elt *str_to_list(const char *str)
 {
     // find size of char array
-    int size = sizeof(str) / sizeof(char);
+    int size = sizeof(str) / sizeof(str[0]);
     printf("length of string: %d", size);
 
     // declare a head node
@@ -279,6 +279,7 @@ struct elt *str_to_list(const char *str)
             }
         }
         // update increment
+        printf("The current value of counter is: %d", i);
         ++i;
     }
     return head;
