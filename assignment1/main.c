@@ -17,7 +17,7 @@ int main()
 
     printf("Convert\n");
     printf("Input: %x\n", 0Xdeadbeef);
-    printf("Expected Hex Result: %lx", 0x00000000deadbeef);
+    printf("Expected Hex Result: %x\n", 0x00000000deadbeef);
     convert(HEX, 0xdeadbeef);
     printf("Binary value\n");
     convert(BIN, 0xdeadbeef);
