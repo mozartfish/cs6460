@@ -49,6 +49,6 @@ int main()
 
     printf("str_to_list\n");
     struct elt *result = str_to_list("hello");
-    // printList(result);
+    printList(result);
     deleteList(result);
 }
