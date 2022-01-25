@@ -19,7 +19,7 @@ void printList(struct elt *head)
 {
     while (head != NULL)
     {
-        printf("%c", head->val);
+        printf("%c\n", head->val);
         head = head->link;
     }
 }
