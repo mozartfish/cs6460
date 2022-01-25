@@ -268,15 +268,17 @@ struct elt *str_to_list(const char *str)
             // add a new node to the elt list
             else
             {
-                struct elt *end_elt = next_elt;
+                // struct elt *end_elt = next_elt;
                 new_elt->val = str[i];
                 new_elt->link = NULL;
+                next_elt->link = new_elt;
+                next_elt = new_elt;
 
-                while (end_elt->link != NULL)
-                {
-                    end_elt = end_elt->link;
-                }
-                end_elt->link = new_elt;
+                // while (end_elt->link != NULL)
+                // {
+                //     end_elt = end_elt->link;
+                // }
+                // end_elt->link = new_elt;
             }
         }
         ++i;
