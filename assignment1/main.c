@@ -23,4 +23,6 @@ int main()
     convert(BIN, 0xdeadbeef);
     printf("Oct value\n");
     convert(OCT, 0xdeadbeef);
+    printf("str_to_list\n");
+    str_to_list("hello");
 }

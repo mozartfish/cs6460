@@ -13,13 +13,13 @@ uint64_t byte_sort(uint64_t arg);
 
 uint64_t nibble_sort(uint64_t arg);
 
-// struct elt
-// {
-//   char val;
-//   struct elt *link;
-// };
+struct elt
+{
+  char val;
+  struct elt *link;
+};
 
-// struct elt* str_to_list(const char* str);
+struct elt* str_to_list(const char* str);
 
 enum format_t
 {

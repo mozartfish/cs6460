@@ -225,4 +225,65 @@ void convert(enum format_t mode, uint64_t value)
     }
 }
 
+/*
+Allocate and return a pointer to a linked list of struct elts.
+*/
+struct elt *str_to_list(const char *str)
+{
+    int size = sizeof(*str) / sizeof(char);
+    // declare a head node
+    struct elt *head = NULL;
+    struct elt *next = NULL;
 
+    int i = 0;
+    while (i < size)
+    {
+        // check if malloc works
+        if ((struct elt *)malloc(sizeof(struct elt)) == NULL)
+        {
+            // check if the head node is null
+            if (head == NULL)
+            {
+                return NULL;
+            }
+            // free all the other memory
+            else
+            {
+                struct elt *current = head;
+                struct elt *next;
+                while (current != NULL)
+                {
+                    next = current->link;
+                    free(current);
+                    current = next;
+                }
+
+                // set head node null
+                head = NULL;
+            }
+        }
+        if (i == 0)
+        {
+            next = (struct elt *)malloc(sizeof(struct elt));
+            next->val = str[i];
+            next->link = NULL;
+            head = next;
+        }
+        else
+        {
+            struct elt *new_elt = (struct elt *)malloc(sizeof(struct elt));
+            struct elt *last_elt = next;
+            new_elt->link = NULL;
+            new_elt->val = str[i];
+
+            while (last_elt->link != NULL)
+            {
+                last_elt = last_elt->link;
+            }
+            last_elt->link = new_elt;
+        }
+        ++i;
+    }
+
+    return head;
+}
