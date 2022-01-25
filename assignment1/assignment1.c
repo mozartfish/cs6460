@@ -236,8 +236,6 @@ struct elt *str_to_list(const char *str)
 
     while (str[i] != '\0')
     {
-        printf("current iteration: %d\n", i);
-
         // create a new node of size elt
         struct elt *new_elt = (struct elt *)malloc(sizeof(struct elt));
 
@@ -278,59 +276,4 @@ struct elt *str_to_list(const char *str)
         ++i;
     }
     return head;
-    // // find size of char array
-    // int size = 0;
-    // while (str[size] != '\0')
-    // {
-    //     ++size;
-    // }
-    // printf("the size of the list is with a counter loop: %d\n", size);
-    // // int size = sizeof(*str) / sizeof(str[0]);
-    // // printf("length of string: %d\n", size);
-
-    // int i = 0;
-    // while (i < size)
-    // {
-
-    //     // create the head node
-    //     if (new_elt != NULL && head == NULL)
-    //     {
-    //         new_elt->val = str[i];
-    //         new_elt->link = NULL;
-    //         head = new_elt;
-    //     }
-    //     else
-    //     {
-    //         // check if the malloc fails
-    //         if (new_elt == NULL)
-    //         {
-    //             struct elt *current_elt = head;
-    //             struct elt *next_elt;
-    //             while (current_elt != NULL)
-    //             {
-    //                 next_elt = current_elt->link;
-    //                 free(current_elt);
-    //                 current_elt = next_elt;
-    //             }
-    //             // set head node null
-    //             head = NULL;
-    //         }
-    //         // add a new node to the elt list
-    //         else
-    //         {
-    //             new_elt->val = str[i];
-    //             new_elt->link = NULL;
-    //             struct elt *last_elt = head;
-    //             while (last_elt->link != NULL)
-    //             {
-    //                 last_elt = last_elt->link;
-    //             }
-    //             last_elt = new_elt;
-    //         }
-    //     }
-    //     // update increment
-    //     printf("The current value of counter is: %d\n", i);
-    //     ++i;
-    // }
-    // return head;
 }

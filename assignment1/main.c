@@ -1,23 +1,24 @@
 #include "assignment1.h"
 #include <stdio.h>
 
+// Function for freeing memory for the linked list
 void deleteList(struct elt *head)
 {
-    int i = 0;
-    struct elt *current_elt = head;
+    struct elt *start_elt = head;
     struct elt *next_elt;
-    while (current_elt != NULL)
+    while (start_elt != NULL)
     {
-        next_elt = current_elt->link;
-        free(current_elt);
-        current_elt = next_elt;
-        ++i;
-        printf("current delete iteration: %d\n", i);
+        next_elt = start_elt->link;
+        free(start_elt);
+        start_elt = next_elt;
     }
     // set head node null
     head = NULL;
 }
 
+/*
+Function for printing the linked list
+*/
 void printList(struct elt *head)
 {
     while (head != NULL)
@@ -52,9 +53,10 @@ int main()
 
     printf("str_to_list\n");
     struct elt *result = str_to_list("hello");
-    // printList(result);
+    printList(result);
     // // printf("el 0: %i\n", result->val);
     // // printf("el 1: %i\n", result->link->val);
     deleteList(result);
+
     return 0;
 }
