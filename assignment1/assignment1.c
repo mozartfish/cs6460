@@ -1,10 +1,12 @@
 /*
-Operating Systems Assignment 1 Part A.
+Operating Systems Assignment 1
 Author: Pranav Rajan u1136324@utah.edu
 Version: January 26, 2022
 */
 #include "assignment1.h"
 #include <fcntl.h>
+
+// Operating Systems Assignment 1 Part A.
 
 // function for swapping elements in the array (byte sort)
 void swap(uint8_t *a, uint8_t *b)
@@ -406,6 +408,8 @@ void draw_u(void)
     // printf("file opened successfully\n");
     return;
 }
+
+// Operating Systems Assignment 1 Part B.
 
 /**
  * Part B Question 1
