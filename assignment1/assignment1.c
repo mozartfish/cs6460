@@ -6,9 +6,60 @@ Version: January 26, 2022
 #include "assignment1.h"
 #include <fcntl.h>
 
+// Operating Systems Assignment 1 Part B.
+
+/**
+ * Part B Question 1
+ * %CR4 value before PSE is enabled: 0000000
+ * %CR4 value after PSE is enabled: 00000010
+ */
+
+/**
+ * Part B Question 2
+ * Address of Initial Kernel Stack: 0x8010b5c0
+ *
+ */
+
+/**
+ * Part B Question 3
+ * "initcode\000\000\000\000\000\000\000"
+ *
+ */
+
+/**
+ * Part B Question 4
+ * NPROC = 64 as defined in param.h
+ * The process table data structure limits this
+ * because the for loop on line 35 iterates until the maximum
+ * number of process specified in param.H which is 64.
+ */
+
+/**
+ * Part B Question 5
+ * I triggered the exit function by running the "ls" command to list the file systems. When ls
+ * is executed it creates a new process and then when the process finishes exit is called. My guess
+ * is that in the exit function the process is reaped.
+ */
+
+/**
+ * Part B Question 6
+ * The process goes from a Running Process to a Zombie Process as stated n line 265 in proc.c
+ */
+
+/**
+ * Part B Question 7
+ * XV6 Process: ls, p *myProc()
+ * name = "ls"
+ * pid = 4
+ *
+ * Parent Process (p * myProc()->parent)
+ * name = "sh"
+ * pid = 2
+ */
+
 // Operating Systems Assignment 1 Part A.
 
-// function for swapping elements in the array (byte sort)
+// Function for swapping elements in the array (byte sort)
 void swap(uint8_t *a, uint8_t *b)
 {
     uint8_t temp = *a;
@@ -408,54 +459,3 @@ void draw_u(void)
     // printf("file opened successfully\n");
     return;
 }
-
-// Operating Systems Assignment 1 Part B.
-
-/**
- * Part B Question 1
- * %CR4 value before PSE is enabled: 0000000
- * %CR4 value after PSE is enabled: 00000010
- */
-
-/**
- * Part B Question 2
- * Address of Initial Kernel Stack: 0x8010b5c0
- *
- */
-
-/**
- * Part B Question 3
- * "initcode\000\000\000\000\000\000\000"
- *
- */
-
-/**
- * Part B Question 4
- * NPROC = 64 as defined in param.h
- * The process table data structure limits this
- * because the for loop on line 35 iterates until the maximum
- * number of process specified in param.H which is 64.
- */
-
-/**
- * Part B Question 5
- * I triggered the exit function by running the "ls" command to list the file systems. When ls
- * is executed it creates a new process and then when the process finishes exit is called. My guess
- * is that in the exit function the process is reaped.
- */
-
-/**
- * Part B Question 6
- * The process goes from a Running Process to a Zombie Process as stated n line 265 in proc.c
- */
-
-/**
- * Part B Question 7
- * XV6 Process: ls, p *myProc()
- * name = "ls"
- * pid = 4
- *
- * Parent Process (p * myProc()->parent)
- * name = "sh"
- * pid = 2
- */
