@@ -30,6 +30,6 @@ enum format_t
 
 void convert(enum format_t mode, uint64_t value);
 
-// void draw_u(void);
+void draw_u(void);
 
 #endif

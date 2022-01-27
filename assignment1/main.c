@@ -58,5 +58,8 @@ int main()
     // // printf("el 1: %i\n", result->link->val);
     deleteList(result);
 
+    printf("Draw U\n");
+    draw_u();
+
     return 0;
 }
