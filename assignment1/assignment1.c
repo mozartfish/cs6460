@@ -228,28 +228,28 @@ void convert(enum format_t mode, uint64_t value)
                 putc('1', stdout);
                 break;
             case 0x2:
-                putc('0', stdout);
+                putc('2', stdout);
                 break;
             case 0x3:
-                putc('1', stdout);
+                putc('3', stdout);
                 break;
             case 0x4:
-                putc('0', stdout);
+                putc('4', stdout);
                 break;
             case 0x5:
-                putc('1', stdout);
+                putc('5', stdout);
                 break;
             case 0X6:
-                putc('0', stdout);
+                putc('6', stdout);
                 break;
             case 0x7:
-                putc('1', stdout);
+                putc('7', stdout);
                 break;
             case 0x8:
-                putc('0', stdout);
+                putc('8', stdout);
                 break;
             case 0x9:
-                putc('1', stdout);
+                putc('9', stdout);
                 break;
             case 0xA:
                 putc('a', stdout);
