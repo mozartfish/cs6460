@@ -26,7 +26,8 @@
  *          initialized; passing any other pointer is illegal.
  */
 void cas_lock_init(cas_lock_t* lock) {
-  // ADD YOUR OWN CODE HERE.
+  // Boolean atomic case - set to false
+  atomic_store(&(lock->locked), false);
 }
 
 /**
@@ -42,7 +43,11 @@ void cas_lock_init(cas_lock_t* lock) {
  *          calling thread; passing any other pointer is illegal.
  */
 void cas_lock_acquire(cas_lock_t* lock) {
-  // ADD YOUR OWN CODE HERE.
+  bool expected = false;
+  while(!atomic_compare_exchange_strong(&(lock->locked), &expected, true))
+  {
+    expected = false;
+  };
 }
 
 /**
@@ -56,7 +61,7 @@ void cas_lock_acquire(cas_lock_t* lock) {
  *         thread; passing any other pointer is illegal.
  */
 void cas_lock_release(cas_lock_t* lock) {
-  // ADD YOUR OWN CODE HERE.
+  atomic_store(&(lock->locked), false);
 }
 
 // --- Problem 2: Ticket Spinlock  ---
@@ -76,7 +81,8 @@ void cas_lock_release(cas_lock_t* lock) {
  *          initialized; passing any other pointer is illegal.
  */
 void ticket_lock_init(ticket_lock_t* lock) {
-  // ADD YOUR OWN CODE HERE.
+  atomic_store(&(lock->turn), 0);
+  atomic_store(&(lock->ticket), 0);
 }
 
 /**
@@ -92,7 +98,9 @@ void ticket_lock_init(ticket_lock_t* lock) {
  *          calling thread; passing any other pointer is illegal.
  */
 void ticket_lock_acquire(ticket_lock_t* lock) {
-  // ADD YOUR OWN CODE HERE.
+  int me;
+  me = atomic_fetch_add(&(lock->ticket), 1);
+  while (me != atomic_load(&(lock->turn)));
 }
 
 /**
@@ -106,7 +114,9 @@ void ticket_lock_acquire(ticket_lock_t* lock) {
  *         thread; passing any other pointer is illegal.
  */
 void ticket_lock_release(ticket_lock_t* lock) {
-  // ADD YOUR OWN CODE HERE.
+  atomic_store(&(lock->turn),
+  atomic_load(&(lock->turn)) + 1
+  );
 }
 
 // --- Problem 3: Linked List ---
