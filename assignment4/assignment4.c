@@ -137,7 +137,8 @@ void ticket_lock_release(ticket_lock_t* lock) {
  *          initialized.
  */
 void list_init(list_t* list) {
-  // ADD YOUR OWN CODE HERE.
+  list->head = NULL;
+  cas_lock_init(&(list->lock));
 }
 
 /**
@@ -157,7 +158,17 @@ void list_init(list_t* list) {
  *         list_find() on the same list once this call returns.
  */
 void list_insert(list_t* list, int key) {
-  // ADD YOUR OWN CODE HERE.
+  cas_lock_acquire(&(list->lock));
+  node_t *new = malloc(sizeof(node_t));
+  if(new == NULL)
+  {
+    perror("malloc");
+    cas_lock_release(&(list->lock));
+  }
+  new->key = key;
+  new->next = list->head;
+  list->head = new;
+  cas_lock_release(&(list->lock));
 }
 
 /**
@@ -176,7 +187,18 @@ void list_insert(list_t* list, int key) {
  *         list_insert()) the function returns true, otherwise it returns false.
  */
 bool list_find(list_t* list, int key) {
-  // ADD YOUR OWN CODE HERE.
+  cas_lock_acquire(&(list->lock));
+  node_t *curr = list->head;
+  while(curr)
+  {
+    if(curr->key == key)
+    {
+      cas_lock_release(&(list->lock));
+      return true;
+    }
+    curr = curr->next;
+  }
+  cas_lock_release(&(list->lock));
   return false;
 }
 
