@@ -239,12 +239,10 @@ void panic_on_failure(int e, const char *file, int line)
 typedef struct tank
 {
   // ADD YOUR OWN FIELDS HERE.
-  pthread_cond_t tank_changed;
-  pthread_mutex_t mutex;
-  // int tang_count;
-  // int stingray_count;
-  int fish_count;
-  int shark_count;
+  pthread_cond_t tank_changed; // conditional variable for representing when tank state changes
+  pthread_mutex_t mutex;       // lock for ensuring synchronization
+  int fish_count; // counter for keeping track of tang and stingrays
+  int shark_count; // counter for keeping track of sharks
 } tank_t;
 
 /**
@@ -260,7 +258,7 @@ typedef struct tank
 tank_t *allocate_and_init_tank(void)
 {
   tank_t *tank = (tank_t *)malloc(sizeof(tank_t));
-  tank->mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+  tank->mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER; 
   tank->tank_changed = (pthread_cond_t)PTHREAD_COND_INITIALIZER;
   tank->fish_count = 0;
   tank->shark_count = 0;
@@ -301,6 +299,8 @@ void enter_tank(tank_t *tank, animal_t type)
 {
   // Open Lock
   try(pthread_mutex_lock(&(tank->mutex)));
+
+  // Tangs + Stingrays
   if (type == TANG || type == STINGRAY)
   {
     while (tank->shark_count > 0)
@@ -309,6 +309,7 @@ void enter_tank(tank_t *tank, animal_t type)
     }
     tank->fish_count++;
   }
+  // Sharks
   else if (type == SHARK)
   {
     while (tank->fish_count > 0 || tank->shark_count >= 2)
