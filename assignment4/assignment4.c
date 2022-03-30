@@ -260,7 +260,7 @@ tank_t *allocate_and_init_tank(void)
   tank_t *tank = (tank_t *)malloc(sizeof(tank_t));
   tank->mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER; 
   tank->tank_changed = (pthread_cond_t)PTHREAD_COND_INITIALIZER;
-  tank->fish_count = 0;
+  tank->fish_count = 0; 
   tank->shark_count = 0;
   return tank;
 }
@@ -309,6 +309,7 @@ void enter_tank(tank_t *tank, animal_t type)
     }
     tank->fish_count++;
   }
+
   // Sharks
   else if (type == SHARK)
   {
@@ -318,6 +319,7 @@ void enter_tank(tank_t *tank, animal_t type)
     }
     tank->shark_count++;
   }
+
   // Close Lock
   try(pthread_mutex_unlock(&(tank->mutex)));
 }
@@ -337,40 +339,34 @@ void enter_tank(tank_t *tank, animal_t type)
  */
 void leave_tank(tank_t *tank, animal_t type)
 {
-  // Open Lock
+    // Open Lock
   try(pthread_mutex_lock(&(tank->mutex)));
 
-  // // Tang
-  // if (type == TANG && tank->tang_count > 0 && tank->shark_count == 0)
-  // {
-  //   // Update tang count
-  //   tank->tang_count--;
+  // Tangs + Stingrays
+  if (type == TANG || type == STINGRAY)
+  {
+    // Exit Tank
+    tank->fish_count--;
 
-  //   // Broadcast and wake up all threads
-  //   try(pthread_cond_broadcast(&(tank->tank_changed)));
-  // }
-  // // Stingray
-  // if (type == STINGRAY && tank->stingray_count > 0 && tank->shark_count == 0)
-  // {
-  //   // Update stingray count
-  //   tank->stingray_count--;
+    if (tank->fish_count == 0)
+    {
+    // Broadcast and wake up all threads
+    try(pthread_cond_broadcast(&(tank->tank_changed)));
+    }
+  }
+  
+  // Sharks
+  else if (type == SHARK)
+  {
+    //Exit Tank
+    tank->shark_count--;
 
-  //   // Broadcast and wake up all threads
-  //   try(pthread_cond_broadcast(&(tank->tank_changed)));
-  // }
-  // // Shark
-  // while(tank->tang_count > 0 || tank->stingray_count > 0 || tank->shark_count == 2)
-  // {
-  //   try(pthread_cond_wait(&(tank->tank_changed), &(tank->mutex)));
-  // }
-  // if (type == SHARK && tank->tang_count == 0 && tank->stingray_count == 0 && tank->shark_count > 0)
-  // {
-  //   // Update shark count
-  //   tank->shark_count--;
-
-  //   // Broadcast and wake up all threads
-  //   try(pthread_cond_broadcast(&(tank->tank_changed)));
-  // }
+    if(tank->shark_count == 0 || tank->shark_count < 2)
+    {
+    // Broadcast and wake up all threads
+    try(pthread_cond_broadcast(&(tank->tank_changed)));
+    }
+  }
 
   // Close Lock
   try(pthread_mutex_unlock(&(tank->mutex)));
