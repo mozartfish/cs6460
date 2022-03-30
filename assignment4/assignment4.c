@@ -5,7 +5,7 @@
 #include <inttypes.h>
 #include <malloc.h>
 #include <assert.h>
-#include <pthread.h> 
+#include <pthread.h>
 
 #include "assignment4.h"
 
@@ -25,7 +25,8 @@
  *  - lock: a pointer to a newly allocated cas_lock_t whose fields are to be
  *          initialized; passing any other pointer is illegal.
  */
-void cas_lock_init(cas_lock_t* lock) {
+void cas_lock_init(cas_lock_t *lock)
+{
   // Boolean atomic case - set to false
   atomic_store(&(lock->locked), false);
 }
@@ -42,9 +43,10 @@ void cas_lock_init(cas_lock_t* lock) {
  *  - lock: a pointer to an initalized cas_lock_t not currently owned by the
  *          calling thread; passing any other pointer is illegal.
  */
-void cas_lock_acquire(cas_lock_t* lock) {
+void cas_lock_acquire(cas_lock_t *lock)
+{
   bool expected = false;
-  while(!atomic_compare_exchange_strong(&(lock->locked), &expected, true))
+  while (!atomic_compare_exchange_strong(&(lock->locked), &expected, true))
   {
     expected = false;
   };
@@ -60,7 +62,8 @@ void cas_lock_acquire(cas_lock_t* lock) {
  * - lock: a pointer to a cas_lock_t currently owned by the calling
  *         thread; passing any other pointer is illegal.
  */
-void cas_lock_release(cas_lock_t* lock) {
+void cas_lock_release(cas_lock_t *lock)
+{
   atomic_store(&(lock->locked), false);
 }
 
@@ -80,7 +83,8 @@ void cas_lock_release(cas_lock_t* lock) {
  *  - lock: a pointer to a newly allocated ticket_lock_t whose fields are to be
  *          initialized; passing any other pointer is illegal.
  */
-void ticket_lock_init(ticket_lock_t* lock) {
+void ticket_lock_init(ticket_lock_t *lock)
+{
   atomic_store(&(lock->turn), 0);
   atomic_store(&(lock->ticket), 0);
 }
@@ -97,10 +101,12 @@ void ticket_lock_init(ticket_lock_t* lock) {
  *  - lock: a pointer to an initalized ticket_lock_t not currently owned by the
  *          calling thread; passing any other pointer is illegal.
  */
-void ticket_lock_acquire(ticket_lock_t* lock) {
+void ticket_lock_acquire(ticket_lock_t *lock)
+{
   int me;
   me = atomic_fetch_add(&(lock->ticket), 1);
-  while (me != atomic_load(&(lock->turn)));
+  while (me != atomic_load(&(lock->turn)))
+    ;
 }
 
 /**
@@ -113,10 +119,10 @@ void ticket_lock_acquire(ticket_lock_t* lock) {
  * - lock: a pointer to a ticket_lock_t currently owned by the calling
  *         thread; passing any other pointer is illegal.
  */
-void ticket_lock_release(ticket_lock_t* lock) {
+void ticket_lock_release(ticket_lock_t *lock)
+{
   atomic_store(&(lock->turn),
-  atomic_load(&(lock->turn)) + 1
-  );
+               atomic_load(&(lock->turn)) + 1);
 }
 
 // --- Problem 3: Linked List ---
@@ -136,7 +142,8 @@ void ticket_lock_release(ticket_lock_t* lock) {
  *  - list: a pointer to a newly allocated list_t whose fields are to be
  *          initialized.
  */
-void list_init(list_t* list) {
+void list_init(list_t *list)
+{
   list->head = NULL;
   cas_lock_init(&(list->lock));
 }
@@ -157,10 +164,11 @@ void list_init(list_t* list) {
  *  - key: a value which is guaranteed to be found by future calls to
  *         list_find() on the same list once this call returns.
  */
-void list_insert(list_t* list, int key) {
+void list_insert(list_t *list, int key)
+{
   cas_lock_acquire(&(list->lock));
   node_t *new = malloc(sizeof(node_t));
-  if(new == NULL)
+  if (new == NULL)
   {
     perror("malloc");
     cas_lock_release(&(list->lock));
@@ -186,12 +194,13 @@ void list_insert(list_t* list, int key) {
  *  - key: the value to search for in list; if key exists (due to a prior
  *         list_insert()) the function returns true, otherwise it returns false.
  */
-bool list_find(list_t* list, int key) {
+bool list_find(list_t *list, int key)
+{
   cas_lock_acquire(&(list->lock));
   node_t *curr = list->head;
-  while(curr)
+  while (curr)
   {
-    if(curr->key == key)
+    if (curr->key == key)
     {
       cas_lock_release(&(list->lock));
       return true;
@@ -204,8 +213,10 @@ bool list_find(list_t* list, int key) {
 
 // --- Problem 4: Monitors and Condition Variables ---
 
-void panic_on_failure(int e, const char* file, int line) {
-  if (e) {
+void panic_on_failure(int e, const char *file, int line)
+{
+  if (e)
+  {
     fprintf(stderr, "Failure at %s:%d\n", file, line);
     exit(-1);
   }
@@ -225,7 +236,8 @@ void panic_on_failure(int e, const char* file, int line) {
  * monitor should include a mutex that ensures  all operations on an initalized
  * tank instance happen under  mutual exclusion.
  */
-typedef struct tank {
+typedef struct tank
+{
   // ADD YOUR OWN FIELDS HERE.
   pthread_cond_t tank_changed;
   pthread_mutex_t mutex;
@@ -233,7 +245,6 @@ typedef struct tank {
   int stingray_count;
   int shark_count;
 } tank_t;
-
 
 /**
  * Heap allocate an instance of struct tank and return a pointer to it.
@@ -245,8 +256,9 @@ typedef struct tank {
  * Return value:
  *  An initalized instance of struct tank.
  */
-tank_t* allocate_and_init_tank(void) {
-  tank_t * tank = (tank_t *) malloc(sizeof(tank_t));
+tank_t *allocate_and_init_tank(void)
+{
+  tank_t *tank = (tank_t *)malloc(sizeof(tank_t));
   tank->mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
   tank->tank_changed = (pthread_cond_t)PTHREAD_COND_INITIALIZER;
   tank->tang_count = 0;
@@ -264,7 +276,8 @@ tank_t* allocate_and_init_tank(void) {
  * Arguments:
  *   - tank: an instance of a tank created by allocate_and_init_tank().
  */
-void destroy_and_free_tank(tank_t* tank) {
+void destroy_and_free_tank(tank_t *tank)
+{
   free(tank);
 }
 
@@ -282,8 +295,45 @@ void destroy_and_free_tank(tank_t* tank) {
  *           or SHARK); this method make no guarantees if any other value is
  *           passed.
  */
-void enter_tank(tank_t* tank, animal_t type) {
-  // ADD YOUR OWN CODE HERE.
+void enter_tank(tank_t *tank, animal_t type)
+{
+  // Open Lock
+  try(pthread_mutex_lock(&(tank->mutex)));
+
+  // Tang
+  if (type == TANG && tank->shark_count == 0)
+  {
+    // Update tang count
+    tank->tang_count++;
+
+    // Broadcast and wake up all threads
+    try(pthread_cond_broadcast(&(tank->tank_changed)));
+  }
+  // Stingray
+  if (type == STINGRAY && tank->shark_count == 0)
+  {
+    // Update stingray count
+    tank->stingray_count++;
+
+    // Broadcast and wake up all threads
+    try(pthread_cond_broadcast(&(tank->tank_changed)));
+  }
+  // Shark
+  while (tank->tang_count > 0 || tank->stingray_count > 0 || tank->shark_count > 2)
+  {
+    try(pthread_cond_wait(&(tank->tank_changed), &(tank->mutex)));
+  }
+  if (type == SHARK && tank->tang_count == 0 && tank->stingray_count == 0 && tank->shark_count <= 2)
+  {
+    // Update shark count
+    tank->shark_count++;
+
+    // Broadcast and wake up all threads
+    try(pthread_cond_broadcast(&(tank->tank_changed)));
+  }
+
+  // Close Lock
+  try(pthread_mutex_unlock(&(tank->mutex)));
 }
 
 /**
@@ -299,7 +349,7 @@ void enter_tank(tank_t* tank, animal_t type) {
  *           or SHARK); this method make no guarantees if any other value is
  *           passed.
  */
-void leave_tank(tank_t* tank, animal_t type) {
+void leave_tank(tank_t *tank, animal_t type)
+{
   // ADD YOUR OWN CODE HERE.
 }
-
