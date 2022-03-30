@@ -5,7 +5,7 @@
 #include <inttypes.h>
 #include <malloc.h>
 #include <assert.h>
-#include <pthread.h>
+#include <pthread.h> 
 
 #include "assignment4.h"
 
@@ -227,7 +227,11 @@ void panic_on_failure(int e, const char* file, int line) {
  */
 typedef struct tank {
   // ADD YOUR OWN FIELDS HERE.
+  pthread_cond_t tank_changed;
   pthread_mutex_t mutex;
+  int tang_count;
+  int stingray_count;
+  int shark_count;
 } tank_t;
 
 
@@ -242,8 +246,13 @@ typedef struct tank {
  *  An initalized instance of struct tank.
  */
 tank_t* allocate_and_init_tank(void) {
-  // ADD YOUR OWN CODE HERE.
-  return NULL;
+  tank_t * tank = (tank_t *) malloc(sizeof(tank_t));
+  tank->mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+  tank->tank_changed = (pthread_cond_t)PTHREAD_COND_INITIALIZER;
+  tank->tang_count = 0;
+  tank->stingray_count = 0;
+  tank->shark_count = 0;
+  return tank;
 }
 
 /**
@@ -256,7 +265,7 @@ tank_t* allocate_and_init_tank(void) {
  *   - tank: an instance of a tank created by allocate_and_init_tank().
  */
 void destroy_and_free_tank(tank_t* tank) {
-  // ADD YOUR OWN CODE HERE.
+  free(tank);
 }
 
 /**

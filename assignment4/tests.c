@@ -12,9 +12,9 @@
 
 #include "assignment4.h"
 
-const bool test_cas = true;
-const bool test_ticket = true;
-const bool test_list = true;
+const bool test_cas = false;
+const bool test_ticket = false;
+const bool test_list = false;
 const bool test_monitor = true;
 
 // You can adjust this if you like. Keep in mind, that if you run with too many
